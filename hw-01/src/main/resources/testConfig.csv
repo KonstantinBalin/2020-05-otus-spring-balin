@@ -1,0 +1,29 @@
+1,answer,A.	Java allows operator overloading.,false
+1,question,Which of the following are true statements? (Choose all that apply.),
+1,answer,D.	Java is a procedural language.,false
+1,answer,C.	Java has pointers to specific locations in memory.,false
+1,answer,B.	Java code compiled on Windows can run on Linux.,true
+1,answer,E.	Java is an object-oriented language.,true
+1,answer,F.	Java is a functional programming language.,false
+1,solutions,"B, E.
+C++ has operator overloading and pointers. Java made a point of not having either. Java does have references to objects, but these are pointing to an object that can move around in memory. Option B is correct because Java is platform independent. Option E is correct because Java is object-oriented. While it does support some parts of functional programming, these occur within a class.",
+2,question,Which of the following are true? (Choose all that apply.),
+2,answer,A.	javac compiles a .class file into a .java file.,false
+2,answer,B.	javac compiles a .java file into a .bytecode file.,false
+2,answer,C.	javac compiles a .java file into a .class file.,true
+2,answer,D.	java accepts the name of the class as a parameter.,true
+2,answer,E.	java accepts the filename of the .bytecode file as a parameter.,false
+2,answer,F.	java accepts the filename of the .class file as a parameter.,false
+2,solutions,"C, D.
+Java puts source code in .java files and bytecode in .class files. It does not use a .bytecode file. When running a Java program, you pass just the name of the class without the .class extension.",
+3,question,"Suppose we have the following class in the file /my/directory/named/A/Bird.java. Which of the answer options replaces INSERT CODE HERE when added independently if we compile from /my/directory? (Choose all that apply.)
+INSERT CODE HERE
+public class Bird {}",
+3,solutions,"D.
+The package name represents any folders underneath the current path, which is named.A in this case. Option C is incorrect because package names are case sensitive, just like variable names and other identifiers.",
+3,answer,A.	package my.directory.named.a;,false
+3,answer,B.	package my.directory.named.A;,false
+3,answer,C.	package named.a;,false
+3,answer,D.	package named.A;,true
+3,answer,E.	package a;,false
+3,answer,F.	package A;,false
