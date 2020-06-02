@@ -2,9 +2,10 @@ package ru.otus.hw01.repository.impl;
 
 import com.opencsv.CSVReader;
 import org.springframework.core.io.Resource;
+import ru.otus.hw01.common.Type;
 import ru.otus.hw01.domain.Answer;
 import ru.otus.hw01.domain.Item;
-import ru.otus.hw01.repository.QuestionAnsverRepository;
+import ru.otus.hw01.repository.QuestionAnswerRepository;
 
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -12,7 +13,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class QuestionAnswerRepositoryCsv implements QuestionAnsverRepository {
+import static ru.otus.hw01.common.Type.valueOf;
+
+public class QuestionAnswerRepositoryCsv implements QuestionAnswerRepository {
     private Resource file;
 
     public QuestionAnswerRepositoryCsv(Resource file) {
@@ -27,9 +30,21 @@ public class QuestionAnswerRepositoryCsv implements QuestionAnsverRepository {
         while ((line = reader.readNext()) != null) {
             checkCorrectSize(line);
             Item item = getItem(items, line[0]);
-            checkAndSetAnswerToItem(line, item);
-            checkAndSetQuestionToItem(line, item);
-            checkAndSetSolutionToItem(line, item);
+
+            if (line[1] != null) {
+                Type type = valueOf(line[1]);
+                switch (type) {
+                    case SOLUTION:
+                        checkAndSetSolutionToItem(line, item);
+                        break;
+                    case ANSWER:
+                        checkAndSetAnswerToItem(line, item);
+                        break;
+                    case QUESTION:
+                        checkAndSetQuestionToItem(line, item);
+                        break;
+                }
+            }
         }
         return new HashSet<>(items.values());
     }
@@ -54,29 +69,23 @@ public class QuestionAnswerRepositoryCsv implements QuestionAnsverRepository {
     }
 
     private void checkAndSetSolutionToItem(String[] line, Item item) {
-        if (line[1] != null && line[1].equals("solutions") && line[2] != null) {
+        if (line[2] != null) {
             item.setSolution(line[2]);
-        } else {
-            throw new IllegalArgumentException("Invalid entry");
         }
     }
 
     private void checkAndSetQuestionToItem(String[] line, Item item) {
-        if (line[1] != null && line[1].equals("question") && line[2] != null) {
+        if (line[2] != null) {
             item.setQuestion(line[2]);
-        } else {
-            throw new IllegalArgumentException("Invalid entry");
         }
     }
 
     private void checkAndSetAnswerToItem(String[] line, Item item) {
-        if (line[1] != null && line[1].equals("answer") && line[2] != null && line[3] != null) {
+        if (line[2] != null && line[3] != null) {
             Answer answer = new Answer();
             answer.setAnswer(line[2]);
             answer.setCorrect(Boolean.parseBoolean(line[3]));
             item.getAnswers().add(answer);
-        } else {
-            throw new IllegalArgumentException("Invalid entry");
         }
     }
 }
