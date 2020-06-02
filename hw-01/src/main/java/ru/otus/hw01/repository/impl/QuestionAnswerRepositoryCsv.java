@@ -52,13 +52,14 @@ public class QuestionAnswerRepositoryCsv implements QuestionAnswerRepository {
     private Item getItem(Map<Long, Item> items, String s) {
         Item item;
         long id = Long.parseLong(s);
+
         if (items.containsKey(id)) {
             item = items.get(id);
         } else {
-            item = new Item();
-            item.setId(id);
+            item = new Item(id);
             items.put(id, item);
         }
+
         return item;
     }
 
