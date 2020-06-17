@@ -10,3 +10,4 @@ https://otus.ru/lessons/javaspring/?int_source=courses_catalog&int_term=programm
 
 ## Содержание
 * hw-01- домашнее задание к уроку 1
+* hw-02- домашнее задание к уроку 2
