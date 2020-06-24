@@ -1,0 +1,6 @@
+application-settings:
+  file-pattern: /data/question_answer_%s.csv
+  locale: en
+  correct-answers-count: 2
+  bundle-path: i18n/messages
+
