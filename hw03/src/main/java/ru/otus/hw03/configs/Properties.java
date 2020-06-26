@@ -10,11 +10,13 @@ import javax.validation.constraints.NotBlank;
 @ConfigurationProperties(prefix = "application-settings")
 public class Properties {
     @NotBlank
-    private String filePattern;
+    private String fileName;
     @NotBlank
     private  String locale;
     @NotBlank
     private  int correctAnswerCount;
     @NotBlank
     private  String bundlePath;
+    @NotBlank
+    private String encoding;
 }

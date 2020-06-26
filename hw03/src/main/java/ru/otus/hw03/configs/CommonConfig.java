@@ -1,22 +1,22 @@
 package ru.otus.hw03.configs;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@PropertySource("classpath:application.yml")
+@RequiredArgsConstructor
 public class CommonConfig {
+
+    private final Properties properties;
 
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-        ms.setBasename("i18n/messages");
-        ms.setDefaultEncoding("UTF-8");
+        ms.setBasename(properties.getBundlePath());
+        ms.setDefaultEncoding(properties.getEncoding());
         return ms;
     }
 

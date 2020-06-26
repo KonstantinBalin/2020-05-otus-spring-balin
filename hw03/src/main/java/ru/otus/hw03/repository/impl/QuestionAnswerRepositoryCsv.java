@@ -33,7 +33,7 @@ public class QuestionAnswerRepositoryCsv implements QARepository {
     public Set<TestItem> getQuestions() throws QARepositoryException {
         try {
 
-            String questionAnswerFile = String.format(properties.getFilePattern(), properties.getLocale());
+            String questionAnswerFile = properties.getFileName();
 
             Map<Long, TestItem> items = new HashMap<>();
 

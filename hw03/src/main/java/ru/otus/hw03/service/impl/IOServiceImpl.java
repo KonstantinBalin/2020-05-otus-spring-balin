@@ -1,12 +1,15 @@
 package ru.otus.hw03.service.impl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.otus.hw03.service.IOService;
 import java.io.*;
 import java.util.Scanner;
 
 @Service
+@Primary
 public class IOServiceImpl implements IOService {
 
     private final InputStream input;

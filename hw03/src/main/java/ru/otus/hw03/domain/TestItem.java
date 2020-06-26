@@ -3,7 +3,6 @@ package ru.otus.hw03.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 

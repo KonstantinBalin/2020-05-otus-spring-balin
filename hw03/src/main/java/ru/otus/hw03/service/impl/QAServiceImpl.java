@@ -1,18 +1,20 @@
 package ru.otus.hw03.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.otus.hw03.domain.TestItem;
 import ru.otus.hw03.domain.TestResult;
 import ru.otus.hw03.domain.User;
-import ru.otus.hw03.exceptions.IOServiceException;
 import ru.otus.hw03.exceptions.QARepositoryException;
 import ru.otus.hw03.exceptions.QAServiceException;
 import ru.otus.hw03.repository.QARepository;
+import ru.otus.hw03.service.IOMessageSourceService;
 import ru.otus.hw03.service.IOService;
 import ru.otus.hw03.service.MessageSourceService;
 import ru.otus.hw03.service.QAService;
+
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,8 +27,12 @@ import java.util.stream.Collectors;
 public class QAServiceImpl implements QAService {
 
     private final QARepository repository;
+
+
+    private final IOMessageSourceService ioMessageSourceService;
     private final IOService ioService;
-    private final MessageSourceService ms;
+
+
 
     @Override
     public TestResult startTest(User user) throws QAServiceException {
@@ -35,7 +41,7 @@ public class QAServiceImpl implements QAService {
             TestResult result = new TestResult();
             result.setUser(user);
             result.setAllAnswerCount(items.size());
-            ioService.write(String.format(ms.getMessage("text.start-test"),items.size()));
+            ioMessageSourceService.write("text.start-test",items.size());
             int successUserAnswer = 0;
 
             for (TestItem item : items) {
@@ -48,7 +54,7 @@ public class QAServiceImpl implements QAService {
                     try {
                         userAnswersForTestItem = getUserAnswersForTestItem();
                     } catch (Exception e) {
-                        ioService.write(ms.getMessage("text.incorrect-answer-entered"));
+                        ioMessageSourceService.write("text.incorrect-answer-entered");
                     }
                 }
 
@@ -56,6 +62,7 @@ public class QAServiceImpl implements QAService {
                     successUserAnswer++;
                 }
             }
+
             result.setSuccessAnswerCount(successUserAnswer);
             return result;
         } catch (Exception e) {
@@ -91,10 +98,10 @@ public class QAServiceImpl implements QAService {
         ioService.write(item.getQuestion());
         for (int i = 0; i < item.getAnswers().size(); i++) {
             if (correctAnswerCount == 1) {
-                ioService.write(ms.getMessage("test.choose"));
+                ioMessageSourceService.write("test.choose");
                 ioService.write(Character.toString((char) 9711) + "  " + (i + 1) + " " + item.getAnswers().get(i).getAnswer());
             } else {
-                ioService.write(String.format(ms.getMessage("test.multi-choice"),correctAnswerCount));
+                ioMessageSourceService.write("test.multi-choice",correctAnswerCount);
                 ioService.write(Character.toString((char) 9744) + "  " + (i + 1) + " " + item.getAnswers().get(i).getAnswer());
             }
         }

@@ -12,16 +12,16 @@ import ru.otus.hw03.service.UserService;
 public class UserServiceImpl implements UserService {
 
     private final IOService ioService;
-    private final MessageSourceService mss;
+    private final IOMessageSourceServiceImpl ioMessageSourceService;
 
     @Override
     public User getUserInfo() {
         User user = new User();
-        ioService.write(mss.getMessage("text.get-last-name"));
+        ioMessageSourceService.write("text.get-last-name");
         user.setLastName(ioService.read());
-        ioService.write(mss.getMessage("text.get-first-name"));
+        ioMessageSourceService.write("text.get-first-name");
         user.setFirstName(ioService.read());
-        ioService.write(mss.getMessage("text.get-age"));
+        ioMessageSourceService.write("text.get-age");
         user.setAge(getInt());
         return user;
     }
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
             try {
                 age = Integer.parseInt(ioService.read());
             } catch (Exception e) {
-                ioService.write(mss.getMessage("test.read-int-error-message"));
+                ioMessageSourceService.write("test.read-int-error-message");
             }
         }
         return age;
