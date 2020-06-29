@@ -1,6 +1,11 @@
 application-settings:
-  file-name: /data/question_answer_en.csv
+  file-name: /data/question_answer_%s.csv
   locale: ru
   correct-answers-count: 2
-  bundle-path: i18n/messages
+  #  bundle-path: i18n/messages
   encoding: UTF-8
+
+spring:
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8

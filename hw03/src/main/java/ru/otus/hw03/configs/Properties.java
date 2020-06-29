@@ -19,4 +19,8 @@ public class Properties {
     private  String bundlePath;
     @NotBlank
     private String encoding;
+
+    public String getFileName() {
+        return String.format(fileName, locale);
+    }
 }
