@@ -1,0 +1,26 @@
+1,ANSWER,A.	Java опддерживает перегрузку операторов,false
+1,QUESTION,Какие из следующих утверждений верные,
+1,ANSWER,D.	Java процедурный язык,false
+1,ANSWER,C.	Java хранит ссылки на участки памяти,false
+1,ANSWER,B.	Java код написаный для Windows может запуститься на Linux.,true
+1,ANSWER,E.	Java объектно ориентированный язык,true
+1,ANSWER,F.	Java функциональный язык,false
+1,SOLUTION,"B, E.",
+2,QUESTION,Что из перечисленного правда.,
+2,ANSWER,A.	javac компилирует .class файлы в .java файлы.,false
+2,ANSWER,B.	javac компилирует .java файлы в .bytecode файлы.,false
+2,ANSWER,C.	javac компилирует .java файлы в .class файлы.,true
+2,ANSWER,D.	java принимает имя класа как параметр.,true
+2,ANSWER,E.	java принимает имя файла с расширением .bytecode как параметр.,false
+2,ANSWER,F.	java принимает имя файла с расширением .class как параметр.,false
+2,SOLUTION,"C, D.",
+3,QUESTION,"Представьте что вы имеете следующий код в файле /my/directory/named/A/Bird.java. Чем можно заменить кусок INSERT CODE HERE если мы компилируем проект из директории /my/directory? Выбирите все что подходит
+INSERT CODE HERE
+public class Bird {}",
+3,SOLUTION,D.,
+3,ANSWER,A.	package my.directory.named.a;,false
+3,ANSWER,B.	package my.directory.named.A;,false
+3,ANSWER,C.	package named.a;,false
+3,ANSWER,D.	package named.A;,true
+3,ANSWER,E.	package a;,false
+3,ANSWER,F.	package A;,false
