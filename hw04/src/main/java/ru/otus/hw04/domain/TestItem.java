@@ -1,16 +1,15 @@
-package ru.otus.hw01.domain;
+package ru.otus.hw04.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @RequiredArgsConstructor
 @EqualsAndHashCode(exclude = {"question", "solution", "answers"})
-public class Item {
+public class TestItem {
     private final long id;
     private String question;
     private String solution;
