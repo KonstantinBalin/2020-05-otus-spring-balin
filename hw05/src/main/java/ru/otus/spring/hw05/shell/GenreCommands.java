@@ -7,8 +7,6 @@ import org.springframework.shell.standard.ShellOption;
 import ru.otus.spring.hw05.domain.Genre;
 import ru.otus.spring.hw05.service.GenreService;
 
-import java.awt.*;
-
 @ShellComponent
 @RequiredArgsConstructor
 public class GenreCommands {
@@ -17,7 +15,7 @@ public class GenreCommands {
 
     @ShellMethod(value = "Add genre", key = {"addGenre"})
     public void addGenre(@ShellOption String description) {
-        genreService.add(new Genre(description));
+        genreService.add(new Genre(null, description));
     }
 
     @ShellMethod(value = "Update genre", key = {"updateGenre"})

@@ -1,50 +1,37 @@
 package ru.otus.spring.hw05.dao.impl;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.spring.hw05.dao.GenreDao;
-import ru.otus.spring.hw05.dao.impl.producer.GenreProducer;
 import ru.otus.spring.hw05.domain.Genre;
 import ru.otus.spring.hw05.exception.GenreException;
-import java.util.*;
+import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Dao for work with genres")
 @JdbcTest
-@Import({GenreDaoJdbc.class, GenreProducer.class})
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Import({GenreDaoJdbc.class})
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class GenreDaoJdbcTest {
-
-    @Autowired
-    private GenreProducer genreProducer;
 
     @Autowired
     private GenreDao genreDao;
 
-    @BeforeAll
-    public void before() {
-        Genre genre = genreProducer.getGenre();
-        genreDao.insert(genre);
-    }
-
     @Test
     @DisplayName("Add new genre")
     void insert() {
-        Genre genre = genreProducer.getGenre();
-
-        Optional<Genre> genreFromDao = genreDao.getAll().stream()
-                .filter(g -> g.getDescription().equals(genre.getDescription()))
-                .findFirst();
-
-        assertThat(genreFromDao.isPresent(), is(true));
-        assertThat(genreFromDao.get(), allOf(
-                hasProperty("id", notNullValue()),
-                hasProperty("description", is("Fantasy"))
-        ));
+        Genre genre = new Genre(null, "Test genre");
+        int genreCountBeforeInsert = genreDao.getAll().size();
+        genreDao.insert(genre);
+        int genreCountAfterInsert = genreDao.getAll().size();
+        assertThat(genreCountBeforeInsert, lessThan(genreCountAfterInsert));
     }
 
     @Test
@@ -66,14 +53,15 @@ class GenreDaoJdbcTest {
     @Test
     void getAll() {
         List<Genre> genres = genreDao.getAll();
-        assertThat(genres.size(), is(1));
+        assertThat(genres.size(), is(2));
     }
 
     @Test
     void delete() {
-        genreDao.delete(1L);
+        List<Genre> genres = genreDao.getAll();
+        genreDao.delete(2L);
         Exception exception = assertThrows(GenreException.class, () -> {
-            genreDao.getById(1L);
+            genreDao.getById(2L);
         });
         String expectedMessage = "Genre not found";
         String actualMessage = exception.getMessage();

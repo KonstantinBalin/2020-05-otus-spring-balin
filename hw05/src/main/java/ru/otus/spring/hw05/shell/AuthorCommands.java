@@ -15,7 +15,7 @@ public class AuthorCommands {
 
     @ShellMethod(value = "Add author", key = {"addAuthor"})
     public void addAuthor(@ShellOption String name)  {
-        Author author = new Author(name);
+        Author author = new Author(null, name);
         authorService.add(author);
     }
 

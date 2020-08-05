@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import ru.otus.spring.hw05.dao.GenreDao;
 import ru.otus.spring.hw05.domain.Genre;
 import ru.otus.spring.hw05.exception.GenreException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;

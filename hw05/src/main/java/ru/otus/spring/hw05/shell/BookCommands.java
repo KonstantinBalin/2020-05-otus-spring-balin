@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import ru.otus.spring.hw05.domain.Author;
 import ru.otus.spring.hw05.domain.Book;
+import ru.otus.spring.hw05.domain.Genre;
 import ru.otus.spring.hw05.service.BookService;
 
 @ShellComponent
@@ -14,13 +16,13 @@ public class BookCommands {
     private final BookService bookService;
 
     @ShellMethod(value = "Add book", key = {"addBook"})
-    public void addBook(@ShellOption String title) {
-        bookService.add(new Book(title));
+    public void addBook(@ShellOption String title, @ShellOption Long authorId, @ShellOption Long genreId) {
+        bookService.add(new Book(null, title, new Author(authorId, null), new Genre(genreId,null)));
     }
 
     @ShellMethod(value = "Update book", key = {"updateBook"})
-    public void updateBook(@ShellOption Long id, @ShellOption String title) {
-        bookService.update(new Book(id, title));
+    public void updateBook(@ShellOption Long id, @ShellOption String title,@ShellOption Long authorId, @ShellOption Long genreId) {
+        bookService.update(new Book(id, title, new Author(authorId, null), new Genre(genreId, null)));
     }
 
     @ShellMethod(value = "Delete book", key = {"delBook"})
@@ -38,13 +40,4 @@ public class BookCommands {
         System.out.println(bookService.getAll());
     }
 
-    @ShellMethod(value = "AddGenreToBook", key = {"addGenreToBook"})
-    public void addGenreToBook(@ShellOption Long bookId, @ShellOption Long genreId) {
-        bookService.addGenreToBook(bookId, genreId);
-    }
-
-    @ShellMethod(value = "AddAuthorToBook", key = {"addAuthorToBook"})
-    public void addAuthorToBook(Long bookId, Long authorId) {
-        bookService.addAuthorToBook(bookId, authorId);
-    }
 }

@@ -4,9 +4,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.hw05.dao.AuthorDao;
-import ru.otus.spring.hw05.domain.Author;
-
-import java.sql.ResultSet;
+import ru.otus.spring.hw05.domain.Author;import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,7 +57,6 @@ public class AuthorDaoJdbc implements AuthorDao {
                 "select * from authors",
                 new AuthorMapper());
     }
-
     @Override
     public void delete(Long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);

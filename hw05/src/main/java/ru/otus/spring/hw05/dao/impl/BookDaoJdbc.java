@@ -4,12 +4,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.hw05.dao.BookDao;
-import ru.otus.spring.hw05.domain.Author;
-import ru.otus.spring.hw05.domain.Book;
-import ru.otus.spring.hw05.domain.Genre;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import ru.otus.spring.hw05.domain.*;
+import java.sql.*;
 import java.util.*;
 
 @Repository
@@ -26,9 +22,11 @@ public class BookDaoJdbc implements BookDao {
         Map<String, Object> params = new HashMap<>();
         params.put("id", book.getId());
         params.put("title", book.getTitle());
+        params.put("author_id", book.getAuthor().getId());
+        params.put("genre_id", book.getGenre().getId());
         namedParameterJdbcOperations.update(
-                "insert into books (id, title) " +
-                        "values (:id, :title)",
+                "insert into books (id, title, author_id, genre_id) " +
+                        "values (:id, :title, :author_id, :genre_id)",
                 params
         );
     }
@@ -38,9 +36,13 @@ public class BookDaoJdbc implements BookDao {
         Map<String, Object> params = new HashMap<>();
         params.put("id", book.getId());
         params.put("title", book.getTitle());
+        params.put("author_id", book.getAuthor().getId());
+        params.put("genre_id", book.getGenre().getId());
         namedParameterJdbcOperations.update(
                 "update books SET " +
-                        "title = :title" +
+                        "title = :title," +
+                        "author_id = :author_id,"+
+                        "genre_id = :genre_id"+
                         " WHERE id = :id",
                 params);
     }
@@ -89,27 +91,6 @@ public class BookDaoJdbc implements BookDao {
         );
     }
 
-    @Override
-    public void addGenreToBook(Long bookId, Long genreId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("book_id", bookId);
-        params.put("genre_id", genreId);
-        namedParameterJdbcOperations.update(
-                "update books set genre_id = :genre_id where id = :book_id",
-                params
-        );
-    }
-
-    @Override
-    public void addAuthorToBook(Long bookId, Long authorId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("book_id", bookId);
-        params.put("author_id", authorId);
-        namedParameterJdbcOperations.update(
-                "update books set author_id = :author_id where id = :book_id",
-                params
-        );
-    }
 
     private static class BookMapper implements RowMapper<Book> {
         @Override

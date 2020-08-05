@@ -1,8 +1,6 @@
 package ru.otus.spring.hw05.service;
 
-import ru.otus.spring.hw05.domain.Author;
 import ru.otus.spring.hw05.domain.Genre;
-
 import java.util.List;
 
 public interface GenreService {

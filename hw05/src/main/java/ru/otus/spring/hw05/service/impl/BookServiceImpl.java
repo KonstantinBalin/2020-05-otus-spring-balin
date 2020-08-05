@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import ru.otus.spring.hw05.dao.AuthorDao;
 import ru.otus.spring.hw05.dao.BookDao;
 import ru.otus.spring.hw05.dao.GenreDao;
+import ru.otus.spring.hw05.domain.Author;
 import ru.otus.spring.hw05.domain.Book;
+import ru.otus.spring.hw05.domain.Genre;
 import ru.otus.spring.hw05.service.BookService;
-
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +21,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void add(Book book) {
+        Author author = authorDao.getById(book.getAuthor().getId());
+        Genre genre = genreDao.getById(book.getGenre().getId());
+        book.setAuthor(author);
+        book.setGenre(genre);
         bookDao.insert(book);
     }
 
@@ -42,23 +46,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public void delete(long id) {
         Book book = bookDao.getById(id);
-//        if (Objects.nonNull(book.getGenre())) {
-//            genreDao.delete(book.getGenre().getId());
-//        }
-//        if (Objects.nonNull(book.getAuthor())) {
-//            authorDao.delete(book.getAuthor().getId());
-//        }
         bookDao.delete(id);
     }
-
-    @Override
-    public void addGenreToBook(Long bookId, Long genreId) {
-        bookDao.addGenreToBook(bookId, genreId);
-    }
-
-    @Override
-    public void addAuthorToBook(Long bookId, Long authorId) {
-        bookDao.addAuthorToBook(bookId, authorId);
-    }
-
 }

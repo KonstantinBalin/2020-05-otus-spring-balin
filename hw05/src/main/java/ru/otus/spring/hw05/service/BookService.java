@@ -11,6 +11,4 @@ public interface BookService {
     Book getById(long id);
     List<Book> getAll();
     void delete(long id);
-    void addGenreToBook(Long bookId, Long genreId);
-    void addAuthorToBook(Long bookId, Long authorId);
 }

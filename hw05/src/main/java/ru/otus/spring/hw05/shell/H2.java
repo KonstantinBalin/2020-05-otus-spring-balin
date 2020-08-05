@@ -3,7 +3,6 @@ package ru.otus.spring.hw05.shell;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.h2.tools.Console;
-
 import java.sql.SQLException;
 
 @ShellComponent
