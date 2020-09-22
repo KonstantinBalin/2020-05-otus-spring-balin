@@ -28,5 +28,5 @@ CREATE TABLE COMMENTS
 (
     ID      BIGINT auto_increment PRIMARY KEY,
     BOOK_ID BIGINT references BOOKS(id) on delete cascade,
-    COMMENT VARCHAR(MAX)
+    TEXT VARCHAR(MAX)
 );
